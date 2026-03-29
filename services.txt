@@ -1,0 +1,12 @@
+# Supported Services
+# Format: service_name|port|description
+
+ssh|22|Secure Shell
+sftp|22|Secure File Transfer
+telnet|23|Telnet Protocol
+ftp|21|File Transfer Protocol
+rdp|3389|Remote Desktop Protocol
+vnc|5900-5909|Virtual Network Computing
+serial|2000-2009|Serial-over-IP
+http|80|Hypertext Transfer Protocol
+https|443|HTTPS

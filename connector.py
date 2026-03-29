@@ -1,6 +1,7 @@
 import shutil
 import subprocess
 import webbrowser
+from typing import Optional, Tuple
 
 def connect_ssh(host: str, username: str):
     if not shutil.which("ssh"):
@@ -57,7 +58,9 @@ def connect_http(host: str, proto_port):
     except (FileNotFoundError, subprocess.CalledProcessError):
         webbrowser.open(url)
 
-def connect_to_service(selected: str, services: dict, host: str, username: str, password: str = ""):
+def connect_to_service(selected: str, services: Optional[dict], host: str, username: str, password: str = ""):
+    if services is None:
+        services = {}
     if selected == 'ssh':
         connect_ssh(host, username)
     elif selected == 'sftp':
@@ -69,10 +72,10 @@ def connect_to_service(selected: str, services: dict, host: str, username: str, 
     elif selected == 'rdp':
         connect_rdp(host, username)
     elif selected == 'vnc':
-        connect_vnc(host, services['vnc'])
+        connect_vnc(host, services.get('vnc', 5900))
     elif selected == 'serial':
-        connect_serial(host, services['serial'])
+        connect_serial(host, services.get('serial', 2000))
     elif selected == 'http':
-        connect_http(host, services['http'])
+        connect_http(host, services.get('http', ('http', 80)))
     else:
         print("Неизвестный протокол.")

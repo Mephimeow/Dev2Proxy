@@ -2,6 +2,7 @@ import logging
 from input_handler import get_host, get_credentials_for_service, choose_service
 from service_detector import detect_services
 from connector import connect_to_service
+from dependencies import check_dependencies, check_dependency_for_service
 
 logging.basicConfig(
     level=logging.INFO,
@@ -19,6 +20,9 @@ def log_connection(service: str, host: str, username: str = ""):
 def main():
     host = None
     services = None
+
+    print("Проверка системных зависимостей...")
+    check_dependencies()
 
     while True:
         if host is None:
@@ -68,6 +72,9 @@ def main():
                 host = None
                 break
 
+            if not check_dependency_for_service(selected):
+                input("\nНажмите Enter для возврата...")
+                continue
             username, password = get_credentials_for_service(selected)
             log_connection(selected, host, username)
             connect_to_service(selected, services, host, username, password)

@@ -1,6 +1,6 @@
 def get_host():
     print("\n" + "="*50)
-    print("**Desktop_to_Proxy**")
+    print("**Dev2Proxy**")
     host = input("Введите IP-адрес хоста: ").strip()
     if not host:
         raise ValueError("IP-адрес не может быть пустым")
